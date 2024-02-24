@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    News
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Últimas Noticias</h1>
+    <div class="row">
+        {% for noticia in noticias.items %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ noticia.title }}</h5>
+                    <p class="card-text">{{ noticia.resumen }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if noticias.has_prev %}
+    <a href="{{ url_for('news.news', pag=noticias.prev_num) }}" class="btn btn-primary">Anterior</a>
+    {% endif %}
+    {% if noticias.has_next %}
+    <a href="{{ url_for('news.news', pag=noticias.next_num) }}" class="btn btn-primary">Siguiente</a>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'mydatabase'
+    networks:
+      - mynetwork
+
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - FLASK_APP=mi_app.py
+    networks:
+      - mynetwork
+    command: bash -c "flask db init && flask db migrate && flask db upgrade && flask run --host=0.0.0.0"
+
+networks:
+  mynetwork:

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Bienvenido a la página de inicio</h1>
+    <h2>Noticias Recientes</h2>
+
+    <div class="row">
+        {% for noticia in noticias.items %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ noticia.title }}</h5>
+                    <p class="card-text">{{ noticia.resumen }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if noticias.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('news.news', pag=noticias.prev_num) }}">Anterior</a></li>
+            {% endif %}
+            {% if noticias.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('news.news', pag=noticias.next_num) }}">Siguiente</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

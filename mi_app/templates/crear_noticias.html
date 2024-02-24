@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Crear Noticia
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Crear Noticia</h1>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control") }}
+            {% for error in form.title.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.resumen.label(class="form-label") }}
+            {{ form.resumen(class="form-control") }}
+            {% for error in form.resumen.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Noticia</button>
+    </form>
+</div>
+{% endblock %}
